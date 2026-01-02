@@ -214,18 +214,28 @@ export default function Home() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-foreground/90 font-semibold text-base">Desired Tone</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
-                              <FormControl>
-                                <SelectTrigger className="bg-background/50 h-14 text-base border-2">
-                                  <SelectValue placeholder="Select a tone" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem value="professional" className="py-3">Professional & Polished</SelectItem>
-                                <SelectItem value="casual" className="py-3">Casual & Friendly</SelectItem>
-                                <SelectItem value="enthusiastic" className="py-3">Enthusiastic & High Energy</SelectItem>
-                              </SelectContent>
-                            </Select>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                              {[
+                                { id: "professional", label: "Professional" },
+                                { id: "enthusiastic", label: "Enthusiastic" },
+                                { id: "short", label: "Short" },
+                              ].map((tone) => (
+                                <Button
+                                  key={tone.id}
+                                  type="button"
+                                  variant={field.value === tone.id ? "default" : "outline"}
+                                  className={`h-16 text-lg font-semibold transition-all ${
+                                    field.value === tone.id 
+                                      ? "ring-2 ring-primary ring-offset-2 shadow-lg" 
+                                      : "hover:border-primary/50"
+                                  }`}
+                                  onClick={() => field.onChange(tone.id)}
+                                  data-testid={`button-tone-${tone.id}`}
+                                >
+                                  {tone.label}
+                                </Button>
+                              ))}
+                            </div>
                             <FormMessage />
                           </FormItem>
                         )}
