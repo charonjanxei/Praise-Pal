@@ -112,13 +112,11 @@ export default function Home() {
     setGeneratedTestimonial(null);
 
     try {
-      // NOTE: Using import.meta.env for client-side API keys is common in frontend apps, 
-      // though typically not recommended for production secrets. 
-      // Since we are staying in frontend-only mode as requested:
+      // Use the Replit secret
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
       
-      if (!apiKey) {
-        throw new Error("VITE_GEMINI_API_KEY is not set in your environment variables.");
+      if (!apiKey || apiKey === "REPLACE_WITH_YOUR_GEMINI_API_KEY") {
+        throw new Error("Please add your GEMINI_API_KEY to Replit Secrets (Tools > Secrets).");
       }
 
       const genAI = new GoogleGenerativeAI(apiKey);
