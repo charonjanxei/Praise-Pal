@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Sparkles, Copy, Check, Quote, ArrowRight, MessageSquare, Star, Zap, Shield, Globe } from "lucide-react";
+import { Sparkles, Copy, Check, Quote, ArrowRight, MessageSquare, Star, Zap, Shield, Globe, History, Layout, Settings, Share2 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { toast } from "sonner";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -33,6 +33,14 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
+interface TestimonialHistory {
+  id: string;
+  original: string;
+  refined: string;
+  tone: string;
+  date: string;
+}
+
 // --- Components ---
 
 const Header = ({ user, onLogin }: { user: any; onLogin: () => void }) => {
@@ -50,6 +58,7 @@ const Header = ({ user, onLogin }: { user: any; onLogin: () => void }) => {
         <motion.div 
           className="flex items-center gap-3 cursor-pointer"
           whileHover={{ scale: 1.02 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <div className="bg-primary shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] p-2.5 rounded-2xl">
             <Sparkles className="w-5 h-5 text-primary-foreground" />
@@ -59,7 +68,7 @@ const Header = ({ user, onLogin }: { user: any; onLogin: () => void }) => {
           </span>
         </motion.div>
         
-        <nav className="hidden lg:flex items-center gap-12 text-[13px] font-black uppercase tracking-[0.2em] text-white/40">
+        <nav className="hidden lg:flex items-center gap-12 text-[11px] font-black uppercase tracking-[0.4em] text-white/40">
           {["Features", "Showcase", "Pricing"].map((item) => (
             <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-primary transition-all relative group">
               {item}
@@ -71,15 +80,18 @@ const Header = ({ user, onLogin }: { user: any; onLogin: () => void }) => {
         <div className="flex items-center gap-4">
           {user ? (
             <div className="flex items-center gap-4 bg-white/5 pl-4 pr-1.5 py-1.5 rounded-full border border-white/5 backdrop-blur-md">
-              <span className="text-sm font-black tracking-tight uppercase">{user.name}</span>
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] font-black tracking-tight uppercase leading-none mb-0.5">{user.name}</span>
+                {user.isPro && <span className="text-[8px] font-black text-primary uppercase tracking-widest">PRO STATUS</span>}
+              </div>
               <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/20 flex items-center justify-center overflow-hidden">
                 <img src={user.profileImage} alt={user.name} className="w-full h-full object-cover" />
               </div>
             </div>
           ) : (
             <div className="flex items-center gap-4">
-              <Button variant="ghost" className="hidden sm:inline-flex font-black uppercase tracking-widest text-xs hover:bg-white/5" onClick={onLogin}>Sign In</Button>
-              <Button className="font-black uppercase tracking-widest text-xs shadow-2xl shadow-primary/20 rounded-full px-10 h-12" onClick={onLogin}>Get Started</Button>
+              <Button variant="ghost" className="hidden sm:inline-flex font-black uppercase tracking-widest text-[10px] hover:bg-white/5" onClick={onLogin}>Verify Identity</Button>
+              <Button className="font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-primary/20 rounded-full px-8 h-12" onClick={onLogin}>Initialize</Button>
             </div>
           )}
         </div>
@@ -104,27 +116,27 @@ const Footer = () => (
           </p>
         </div>
         <div>
-          <h4 className="font-black uppercase tracking-[0.3em] text-xs mb-8 text-white">Platform</h4>
-          <ul className="space-y-6 text-white/30 font-bold uppercase tracking-widest text-[11px]">
+          <h4 className="font-black uppercase tracking-[0.3em] text-[10px] mb-8 text-white">Platform</h4>
+          <ul className="space-y-6 text-white/30 font-bold uppercase tracking-widest text-[10px]">
             <li><a href="#" className="hover:text-primary transition-colors">API Engine</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Integrations</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Enterprise</a></li>
           </ul>
         </div>
         <div>
-          <h4 className="font-black uppercase tracking-[0.3em] text-xs mb-8 text-white">Legal</h4>
-          <ul className="space-y-6 text-white/30 font-bold uppercase tracking-widest text-[11px]">
+          <h4 className="font-black uppercase tracking-[0.3em] text-[10px] mb-8 text-white">Legal</h4>
+          <ul className="space-y-6 text-white/30 font-bold uppercase tracking-widest text-[10px]">
             <li><a href="#" className="hover:text-primary transition-colors">Privacy Ops</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Terms of Use</a></li>
             <li><a href="#" className="hover:text-primary transition-colors">Security Audit</a></li>
           </ul>
         </div>
       </div>
-      <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-white/20 text-[11px] font-black uppercase tracking-[0.3em]">
+      <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-white/20 text-[10px] font-black uppercase tracking-[0.3em]">
         <p>&copy; {new Date().getFullYear()} TestimonialAI. Engineered for excellence.</p>
         <div className="flex gap-8">
           <Globe className="w-5 h-5 hover:text-primary cursor-pointer transition-colors" />
-          <Globe className="w-5 h-5 hover:text-primary cursor-pointer transition-colors" />
+          <Share2 className="w-5 h-5 hover:text-primary cursor-pointer transition-colors" />
         </div>
       </div>
     </div>
@@ -136,10 +148,16 @@ export default function Home() {
   const [generatedTestimonial, setGeneratedTestimonial] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [history, setHistory] = useState<TestimonialHistory[]>([]);
   
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+
+  useEffect(() => {
+    const savedHistory = localStorage.getItem("testimonial_history");
+    if (savedHistory) setHistory(JSON.parse(savedHistory));
+  }, []);
 
   const mockLogin = () => {
     setUser({
@@ -177,9 +195,22 @@ export default function Home() {
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
-      const text = response.text();
+      const text = response.text().trim();
       
-      setGeneratedTestimonial(text.trim());
+      setGeneratedTestimonial(text);
+      
+      const newEntry: TestimonialHistory = {
+        id: Date.now().toString(),
+        original: values.rawFeedback,
+        refined: text,
+        tone: values.tone,
+        date: new Date().toLocaleDateString()
+      };
+      
+      const updatedHistory = [newEntry, ...history].slice(0, 5);
+      setHistory(updatedHistory);
+      localStorage.setItem("testimonial_history", JSON.stringify(updatedHistory));
+      
       toast.success("Refinement complete.");
     } catch (error: any) {
       console.error("Gemini Error:", error);
@@ -189,9 +220,10 @@ export default function Home() {
     }
   };
 
-  const copyToClipboard = () => {
-    if (generatedTestimonial) {
-      navigator.clipboard.writeText(generatedTestimonial);
+  const copyToClipboard = (textToCopy?: string) => {
+    const target = textToCopy || generatedTestimonial;
+    if (target) {
+      navigator.clipboard.writeText(target);
       setCopied(true);
       toast.success("Asset secured to clipboard.");
       setTimeout(() => setCopied(false), 2000);
@@ -377,11 +409,11 @@ export default function Home() {
                           <p className="text-xl md:text-5xl leading-[1.1] text-white font-heading font-black italic tracking-tighter">
                             "{generatedTestimonial}"
                           </p>
-                          <div className="pt-8 md:pt-12 flex justify-end">
+                          <div className="pt-8 md:pt-12 flex justify-end gap-4">
                             <Button
                               variant="outline"
                               size="lg"
-                              onClick={copyToClipboard}
+                              onClick={() => copyToClipboard()}
                               className="h-14 md:h-20 px-8 md:px-12 rounded-full gap-3 md:gap-5 text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] border-2 border-white/10 hover:border-primary hover:bg-primary/5 transition-all active:scale-[0.94] group bg-white/[0.02]"
                             >
                               {copied ? <Check className="w-4 md:w-6 h-4 md:h-6 text-green-500" /> : <Copy className="w-4 md:w-6 h-4 md:h-6 transition-transform group-hover:-translate-y-1" />}
@@ -413,6 +445,40 @@ export default function Home() {
             </motion.div>
           </div>
         </section>
+
+        {/* History Section */}
+        {history.length > 0 && (
+          <section className="container mx-auto px-4 md:px-6 pb-40">
+            <div className="flex items-center gap-4 mb-12">
+              <History className="w-6 h-6 text-primary" />
+              <h3 className="text-[11px] font-black uppercase tracking-[0.4em] text-white/40">Recent History</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {history.map((item) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white/[0.02] border border-white/5 p-8 rounded-[2rem] group hover:bg-white/[0.04] transition-all relative overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyToClipboard(item.refined)}
+                      className="h-10 w-10 p-0 rounded-full hover:bg-primary/20"
+                    >
+                      <Copy className="w-4 h-4 text-primary" />
+                    </Button>
+                  </div>
+                  <Badge className="bg-primary/20 text-primary text-[8px] font-black uppercase tracking-widest mb-6 border-none">{item.tone}</Badge>
+                  <p className="text-white/60 text-sm font-medium line-clamp-3 italic mb-4">"{item.refined}"</p>
+                  <span className="text-white/20 text-[9px] font-black uppercase tracking-widest">{item.date}</span>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Pricing Section */}
         <section id="pricing" className="container mx-auto px-6 py-40 border-t border-white/5 relative">
