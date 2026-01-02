@@ -389,7 +389,13 @@ export default function Home() {
                 <Button 
                   className="w-full h-14 text-lg font-bold shadow-lg shadow-primary/20"
                   onClick={() => {
-                    toast.info("Stripe integration requires a backend. This button would normally redirect to a checkout session.");
+                    const stripeUrl = `https://checkout.stripe.com/pay/cs_test_mockup_${Math.random().toString(36).substring(7)}`;
+                    toast.success("Redirecting to Stripe Test Mode...", {
+                      description: "Opening secure checkout session (Simulated)",
+                    });
+                    setTimeout(() => {
+                      window.open(stripeUrl, "_blank");
+                    }, 1000);
                   }}
                   data-testid="button-buy-pro"
                 >
