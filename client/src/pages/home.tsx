@@ -310,16 +310,15 @@ export default function Home() {
                 <Button 
                   className="w-full h-14 text-lg font-bold shadow-lg shadow-primary/20"
                   onClick={() => {
-                    const stripeUrl = `https://checkout.stripe.com/pay/cs_test_mockup_${Math.random().toString(36).substring(7)}`;
-                    toast.success("Redirecting to Stripe Test Mode...", {
-                      description: "Opening secure checkout session (Simulated)",
+                    toast.success("Demo Mode: Checkout Successful!", {
+                      description: "In this prototype, we've bypassed the payment page to show you the Pro features instantly.",
                     });
-                    setTimeout(() => {
-                      window.open(stripeUrl, "_blank");
-                    }, 1000);
+                    // Simulate unlocking Pro features
+                    setUser((prev: any) => prev ? ({ ...prev, isPro: true }) : ({ id: 'demo', name: 'Demo User', isPro: true }));
                   }}
+                  data-testid="button-buy-pro"
                 >
-                  Upgrade to Pro
+                  Upgrade to Pro (Demo)
                 </Button>
               </CardContent>
             </Card>
