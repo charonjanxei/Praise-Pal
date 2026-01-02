@@ -143,24 +143,24 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <Card className="border-border/50 shadow-xl shadow-primary/5 bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 mb-4 text-muted-foreground">
-                    <MessageSquare className="w-4 h-4" />
-                    <span className="text-sm font-medium uppercase tracking-wider">Input</span>
+                <CardContent className="p-6 md:p-8">
+                  <div className="flex items-center gap-2 mb-6 text-muted-foreground">
+                    <MessageSquare className="w-5 h-5" />
+                    <span className="text-xs font-bold uppercase tracking-widest">Input</span>
                   </div>
                   
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                       <FormField
                         control={form.control}
                         name="rawFeedback"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-foreground/80">Client's Raw Feedback</FormLabel>
+                            <FormLabel className="text-foreground/90 font-semibold text-base">Client's Raw Feedback</FormLabel>
                             <FormControl>
                               <Textarea
                                 placeholder="e.g. 'Hey, just wanted to say the new website looks dope. The team loves it, especially the mobile view. Thanks for being so fast with the updates!'"
-                                className="min-h-[200px] resize-none text-base bg-background/50 focus:bg-background transition-colors"
+                                className="min-h-[250px] resize-none text-lg p-4 bg-background/50 focus:bg-background transition-all border-2 focus:border-primary/50"
                                 {...field}
                               />
                             </FormControl>
@@ -174,17 +174,17 @@ export default function Home() {
                         name="tone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-foreground/80">Desired Tone</FormLabel>
+                            <FormLabel className="text-foreground/90 font-semibold text-base">Desired Tone</FormLabel>
                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                               <FormControl>
-                                <SelectTrigger className="bg-background/50">
+                                <SelectTrigger className="bg-background/50 h-14 text-base border-2">
                                   <SelectValue placeholder="Select a tone" />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                <SelectItem value="professional">Professional & Polished</SelectItem>
-                                <SelectItem value="casual">Casual & Friendly</SelectItem>
-                                <SelectItem value="enthusiastic">Enthusiastic & High Energy</SelectItem>
+                                <SelectItem value="professional" className="py-3">Professional & Polished</SelectItem>
+                                <SelectItem value="casual" className="py-3">Casual & Friendly</SelectItem>
+                                <SelectItem value="enthusiastic" className="py-3">Enthusiastic & High Energy</SelectItem>
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -195,18 +195,18 @@ export default function Home() {
                       <Button 
                         type="submit" 
                         size="lg" 
-                        className="w-full font-semibold text-base shadow-lg shadow-primary/20"
+                        className="w-full h-16 font-bold text-lg shadow-xl shadow-primary/30 transition-transform active:scale-[0.98]"
                         disabled={isGenerating}
                       >
                         {isGenerating ? (
                           <>
-                            <Sparkles className="mr-2 h-4 w-4 animate-spin" />
+                            <Sparkles className="mr-3 h-6 w-6 animate-spin" />
                             Polishing...
                           </>
                         ) : (
                           <>
-                            <Sparkles className="mr-2 h-4 w-4" />
-                            Generate Professional Testimonial
+                            <Sparkles className="mr-3 h-6 w-6" />
+                            Generate Testimonial
                           </>
                         )}
                       </Button>
@@ -224,17 +224,17 @@ export default function Home() {
               className="relative h-full"
             >
               <div className="absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 hidden md:block text-muted-foreground/30">
-                <ArrowRight className="w-8 h-8" />
+                <ArrowRight className="w-10 h-10" />
               </div>
 
               <Card className="h-full border-border/50 shadow-xl shadow-purple-500/5 bg-card/50 backdrop-blur-sm flex flex-col">
-                <CardContent className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 mb-4 text-muted-foreground">
-                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                    <span className="text-sm font-medium uppercase tracking-wider">Polished Result</span>
+                <CardContent className="p-6 md:p-8 flex-1 flex flex-col">
+                  <div className="flex items-center gap-2 mb-6 text-muted-foreground">
+                    <Star className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                    <span className="text-xs font-bold uppercase tracking-widest">Polished Result</span>
                   </div>
 
-                  <div className="flex-1 flex items-center justify-center min-h-[200px] bg-muted/30 rounded-xl p-6 relative border border-dashed border-border group transition-all duration-300 hover:border-primary/20 hover:bg-muted/50">
+                  <div className="flex-1 flex items-center justify-center min-h-[250px] bg-muted/30 rounded-2xl p-6 md:p-10 relative border-2 border-dashed border-border group transition-all duration-300 hover:border-primary/30 hover:bg-muted/50">
                     <AnimatePresence mode="wait">
                       {generatedTestimonial ? (
                         <motion.div
@@ -244,19 +244,19 @@ export default function Home() {
                           exit={{ opacity: 0, scale: 0.95 }}
                           className="w-full"
                         >
-                          <Quote className="w-8 h-8 text-primary/20 mb-4" />
-                          <p className="text-lg leading-relaxed text-foreground font-medium">
+                          <Quote className="w-10 h-10 text-primary/20 mb-6" />
+                          <p className="text-xl md:text-2xl leading-relaxed text-foreground font-medium italic">
                             "{generatedTestimonial}"
                           </p>
-                          <div className="mt-6 flex justify-end">
+                          <div className="mt-10 flex justify-end">
                             <Button
                               variant="outline"
-                              size="sm"
+                              size="lg"
                               onClick={copyToClipboard}
-                              className="gap-2 transition-all hover:border-primary hover:text-primary"
+                              className="h-14 px-8 gap-3 text-base border-2 transition-all hover:border-primary hover:text-primary active:scale-[0.98]"
                             >
-                              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                              {copied ? "Copied" : "Copy Text"}
+                              {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+                              {copied ? "Copied" : "Copy to Clipboard"}
                             </Button>
                           </div>
                         </motion.div>
@@ -268,10 +268,10 @@ export default function Home() {
                           exit={{ opacity: 0 }}
                           className="text-center text-muted-foreground/60 max-w-xs"
                         >
-                          <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                            <Sparkles className="w-8 h-8 text-muted-foreground/40" />
+                          <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mx-auto mb-6 shadow-inner">
+                            <Sparkles className="w-10 h-10 text-muted-foreground/30" />
                           </div>
-                          <p>Your polished testimonial will appear here ready to copy.</p>
+                          <p className="text-lg font-medium">Your polished testimonial will appear here ready to copy.</p>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -279,17 +279,17 @@ export default function Home() {
                   
                   {generatedTestimonial && (
                     <motion.div 
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/10 flex gap-3"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-6 p-5 bg-primary/5 rounded-xl border-2 border-primary/10 flex gap-4"
                     >
-                      <div className="shrink-0 mt-0.5">
-                        <div className="w-2 h-2 rounded-full bg-primary" />
+                      <div className="shrink-0 mt-1">
+                        <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
                       </div>
                       <div className="space-y-1">
-                        <p className="text-xs font-semibold text-primary">AI Enhancement Note</p>
-                        <p className="text-xs text-muted-foreground">
-                          Grammar corrected, tone adjusted to {form.getValues("tone")}, and flow improved for marketing impact.
+                        <p className="text-sm font-bold text-primary tracking-tight">AI Enhancement Active</p>
+                        <p className="text-sm text-muted-foreground leading-snug">
+                          Grammar corrected, tone adjusted to <span className="text-foreground font-medium capitalize">{form.getValues("tone")}</span>, and flow improved for marketing impact.
                         </p>
                       </div>
                     </motion.div>
