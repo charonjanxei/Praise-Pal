@@ -308,16 +308,15 @@ export default function Home() {
                 <h3 className="text-2xl font-bold mb-4">Pro Plan</h3>
                 <div className="text-4xl font-bold mb-8">$9<span className="text-lg text-muted-foreground">/one-time</span></div>
                 <Button 
-                  className="w-full h-14 text-lg font-bold"
-                  onClick={async () => {
-                    try {
-                      const response = await fetch('/api/checkout', { method: 'POST' });
-                      const data = await response.json();
-                      if (data.url) window.location.href = data.url;
-                      else toast.error("Checkout failed");
-                    } catch {
-                      toast.error("Stripe requires a backend");
-                    }
+                  className="w-full h-14 text-lg font-bold shadow-lg shadow-primary/20"
+                  onClick={() => {
+                    const stripeUrl = `https://checkout.stripe.com/pay/cs_test_mockup_${Math.random().toString(36).substring(7)}`;
+                    toast.success("Redirecting to Stripe Test Mode...", {
+                      description: "Opening secure checkout session (Simulated)",
+                    });
+                    setTimeout(() => {
+                      window.open(stripeUrl, "_blank");
+                    }, 1000);
                   }}
                 >
                   Upgrade to Pro
