@@ -49,8 +49,8 @@ const Header = ({ user, onLogin }: { user: any; onLogin: () => void }) => (
         <span className="font-heading font-bold text-xl tracking-tight">TestimonialAutomator</span>
       </div>
       <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-        <a href="#" className="hover:text-foreground transition-colors">Features</a>
-        <a href="#" className="hover:text-foreground transition-colors">Pricing</a>
+        <a href="#features" className="hover:text-foreground transition-colors">Features</a>
+        <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
       </nav>
       <div className="flex items-center gap-4">
         {user ? (
@@ -346,6 +346,60 @@ export default function Home() {
                 </CardContent>
               </Card>
             </motion.div>
+          </div>
+        </section>
+
+        <section id="pricing" className="container mx-auto px-4 py-24 border-t border-border/40">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">Simple, Transparent Pricing</h2>
+            <p className="text-muted-foreground text-lg">Choose the plan that's right for you</p>
+          </div>
+          
+          <div className="max-w-md mx-auto">
+            <Card className="relative overflow-hidden border-2 border-primary/50 shadow-2xl shadow-primary/10">
+              <div className="absolute top-0 right-0 bg-primary text-primary-foreground px-4 py-1 text-sm font-bold rounded-bl-lg">
+                POPULAR
+              </div>
+              <CardContent className="p-8">
+                <div className="mb-8">
+                  <h3 className="text-2xl font-bold mb-2">Pro Plan</h3>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-bold">$9</span>
+                    <span className="text-muted-foreground">/one-time</span>
+                  </div>
+                </div>
+                
+                <ul className="space-y-4 mb-8">
+                  {[
+                    "Unlimited AI generations",
+                    "All tones included",
+                    "High-priority processing",
+                    "Commercial usage rights",
+                    "Export to any format"
+                  ].map((feature, i) => (
+                    <li key={i} className="flex items-center gap-3">
+                      <div className="bg-primary/10 p-1 rounded-full">
+                        <Check className="w-4 h-4 text-primary" />
+                      </div>
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <Button 
+                  className="w-full h-14 text-lg font-bold shadow-lg shadow-primary/20"
+                  onClick={() => {
+                    toast.info("Stripe integration requires a backend. This button would normally redirect to a checkout session.");
+                  }}
+                  data-testid="button-buy-pro"
+                >
+                  Upgrade to Pro
+                </Button>
+                <p className="text-center text-xs text-muted-foreground mt-4">
+                  Secure payment via Stripe
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </section>
       </main>
