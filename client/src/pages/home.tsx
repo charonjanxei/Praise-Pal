@@ -388,14 +388,22 @@ export default function Home() {
                 
                 <Button 
                   className="w-full h-14 text-lg font-bold shadow-lg shadow-primary/20"
-                  onClick={() => {
-                    const stripeUrl = `https://checkout.stripe.com/pay/cs_test_mockup_${Math.random().toString(36).substring(7)}`;
-                    toast.success("Redirecting to Stripe Test Mode...", {
-                      description: "Opening secure checkout session (Simulated)",
-                    });
-                    setTimeout(() => {
-                      window.open(stripeUrl, "_blank");
-                    }, 1000);
+                  onClick={async () => {
+                    try {
+                      const response = await fetch('/api/checkout', { method: 'POST' });
+                      const data = await response.json();
+                      if (data.url) {
+                        window.location.href = data.url; // This sends you to Stripe!
+                      } else {
+                        toast.error("Stripe session creation failed", {
+                          description: "Please check your backend logs and API keys."
+                        });
+                      }
+                    } catch (error) {
+                      toast.error("Failed to connect to backend", {
+                        description: "Stripe requires a functional backend API route."
+                      });
+                    }
                   }}
                   data-testid="button-buy-pro"
                 >
