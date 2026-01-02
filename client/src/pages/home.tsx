@@ -215,28 +215,28 @@ export default function Home() {
 
       <main className="flex-1 relative z-10">
         {/* Hero Section */}
-        <section className="pt-56 pb-40 container mx-auto px-6 relative">
+        <section className="pt-32 md:pt-56 pb-20 md:pb-40 container mx-auto px-4 md:px-6 relative overflow-hidden">
           <motion.div 
             style={{ opacity, scale }}
-            className="text-center max-w-6xl mx-auto space-y-12"
+            className="text-center max-w-6xl mx-auto space-y-8 md:space-y-12"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
-              className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-2.5 rounded-full text-[10px] font-black tracking-[0.4em] uppercase mb-4 backdrop-blur-md"
+              className="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-4 md:px-6 py-2 md:py-2.5 rounded-full text-[9px] md:text-[10px] font-black tracking-[0.4em] uppercase mb-2 backdrop-blur-md"
             >
-              <Zap className="w-3.5 h-3.5 text-primary animate-pulse" />
-              Engineered with Gemini 2.0 Flash
+              <Zap className="w-3 md:w-3.5 h-3 md:h-3.5 text-primary animate-pulse" />
+              Gemini 2.0 Flash Enhanced
             </motion.div>
             
             <motion.h1 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="text-7xl md:text-[9rem] font-heading font-black tracking-[-0.05em] leading-[0.85] text-white uppercase"
+              className="text-5xl md:text-[9rem] font-heading font-black tracking-[-0.05em] leading-[0.85] text-white uppercase"
             >
-              Refine your <br />
+              Refine your <br className="hidden md:block" />
               <span className="text-primary italic font-serif lowercase tracking-tight">reputation.</span>
             </motion.h1>
 
@@ -244,7 +244,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="text-2xl md:text-3xl text-white/40 max-w-4xl mx-auto font-medium leading-[1.3] tracking-tight"
+              className="text-lg md:text-3xl text-white/40 max-w-4xl mx-auto font-medium leading-[1.3] tracking-tight px-4"
             >
               Transform casual client praise into high-conversion marketing assets. Stop using raw feedback—start using refined testimonials.
             </motion.p>
@@ -252,8 +252,8 @@ export default function Home() {
         </section>
 
         {/* Generator App Section */}
-        <section className="container mx-auto px-6 pb-60">
-          <div className="grid lg:grid-cols-2 gap-12 items-stretch">
+        <section className="container mx-auto px-4 md:px-6 pb-20 md:pb-60">
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-stretch">
             {/* Input Side */}
             <motion.div
               initial={{ opacity: 0, x: -60 }}
@@ -261,20 +261,20 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
-              <Card className="h-full bg-white/[0.02] border-white/5 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.5)] relative overflow-hidden group rounded-[3rem]">
+              <Card className="h-full bg-white/[0.02] border-white/5 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.5)] relative overflow-hidden group rounded-[2rem] md:rounded-[3rem]">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                <CardContent className="p-14 relative z-10">
-                  <div className="flex items-center justify-between mb-12">
+                <CardContent className="p-6 md:p-14 relative z-10">
+                  <div className="flex items-center justify-between mb-8 md:mb-12">
                     <div className="flex items-center gap-4">
-                      <div className="bg-white/5 p-3 rounded-2xl border border-white/10 shadow-inner">
-                        <MessageSquare className="w-6 h-6 text-primary" />
+                      <div className="bg-white/5 p-2 md:p-3 rounded-xl border border-white/10 shadow-inner">
+                        <MessageSquare className="w-5 md:w-6 h-5 md:h-6 text-primary" />
                       </div>
-                      <span className="text-[11px] font-black uppercase tracking-[0.4em] text-white/30">Raw Transmission</span>
+                      <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] text-white/30">Transmission</span>
                     </div>
                   </div>
                   
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 md:space-y-12">
                       <FormField
                         control={form.control}
                         name="rawFeedback"
@@ -284,10 +284,10 @@ export default function Home() {
                               <div className="relative group/textarea">
                                 <Textarea
                                   placeholder="Capture the raw client feedback here..."
-                                  className="min-h-[350px] bg-black/40 border-2 border-white/5 focus:border-primary/50 text-2xl p-10 rounded-[2.5rem] transition-all duration-500 resize-none shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)] placeholder:text-white/10 font-medium tracking-tight"
+                                  className="min-h-[250px] md:min-h-[350px] bg-black/40 border-2 border-white/5 focus:border-primary/50 text-lg md:text-2xl p-6 md:p-10 rounded-[1.5rem] md:rounded-[2.5rem] transition-all duration-500 resize-none shadow-[inset_0_2px_20px_rgba(0,0,0,0.5)] placeholder:text-white/10 font-medium tracking-tight"
                                   {...field}
                                 />
-                                <div className="absolute inset-0 rounded-[2.5rem] bg-primary/5 opacity-0 group-focus-within/textarea:opacity-100 pointer-events-none transition-opacity duration-500" />
+                                <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2.5rem] bg-primary/5 opacity-0 group-focus-within/textarea:opacity-100 pointer-events-none transition-opacity duration-500" />
                               </div>
                             </FormControl>
                             <FormMessage className="font-black text-red-500/60 pl-6 uppercase text-[10px] tracking-[0.2em]" />
@@ -300,25 +300,25 @@ export default function Home() {
                         name="tone"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-6 block">Refinement Parameter</FormLabel>
-                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                            <FormLabel className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20 mb-4 md:mb-6 block text-center md:text-left">Parameter Selection</FormLabel>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5">
                               {[
                                 { id: "professional", label: "Elite", icon: Shield },
-                                { id: "enthusiastic", label: "High Energy", icon: Zap },
-                                { id: "short", label: "Pure Impact", icon: Globe },
+                                { id: "enthusiastic", label: "Energy", icon: Zap },
+                                { id: "short", label: "Impact", icon: Globe },
                               ].map((tone) => (
                                 <button
                                   key={tone.id}
                                   type="button"
-                                  className={`h-24 rounded-3xl flex flex-col items-center justify-center gap-3 border-2 transition-all duration-500 ${
+                                  className={`h-16 md:h-24 rounded-2xl md:rounded-3xl flex flex-row md:flex-col items-center justify-center gap-3 border-2 transition-all duration-500 px-6 md:px-0 ${
                                     field.value === tone.id 
                                       ? "bg-primary border-primary text-primary-foreground shadow-[0_15px_30px_rgba(var(--primary-rgb),0.3)] scale-[1.03]" 
                                       : "bg-white/[0.03] border-white/5 hover:border-white/20 text-white/40"
                                   }`}
                                   onClick={() => field.onChange(tone.id)}
                                 >
-                                  <tone.icon className={`w-6 h-6 ${field.value === tone.id ? "text-primary-foreground" : "text-primary/50"}`} />
-                                  <span className="text-[10px] font-black uppercase tracking-[0.3em]">{tone.label}</span>
+                                  <tone.icon className={`w-4 md:w-6 h-4 md:h-6 ${field.value === tone.id ? "text-primary-foreground" : "text-primary/50"}`} />
+                                  <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em]">{tone.label}</span>
                                 </button>
                               ))}
                             </div>
@@ -329,16 +329,16 @@ export default function Home() {
                       <Button 
                         type="submit" 
                         size="lg" 
-                        className="w-full h-24 rounded-3xl font-black text-2xl uppercase tracking-[0.3em] shadow-[0_20px_50px_rgba(var(--primary-rgb),0.2)] transition-all active:scale-[0.96] relative overflow-hidden group"
+                        className="w-full h-16 md:h-24 rounded-2xl md:rounded-3xl font-black text-lg md:text-2xl uppercase tracking-[0.3em] shadow-[0_20px_50px_rgba(var(--primary-rgb),0.2)] transition-all active:scale-[0.96] relative overflow-hidden group"
                         disabled={isGenerating}
                       >
                         <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                         {isGenerating ? (
-                          <Sparkles className="mr-6 h-8 w-8 animate-spin" />
+                          <Sparkles className="mr-3 md:mr-6 h-6 md:h-8 w-6 md:w-8 animate-spin" />
                         ) : (
-                          <Sparkles className="mr-6 h-8 w-8 transition-transform group-hover:rotate-12" />
+                          <Sparkles className="mr-3 md:mr-6 h-6 md:h-8 w-6 md:w-8 transition-transform group-hover:rotate-12" />
                         )}
-                        {isGenerating ? "Processing..." : "Refine Now"}
+                        {isGenerating ? "Refining..." : "Initialize"}
                       </Button>
                     </form>
                   </Form>
@@ -354,15 +354,15 @@ export default function Home() {
               transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
-              <Card className="h-full bg-gradient-to-b from-white/[0.04] to-transparent border-white/5 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.5)] relative overflow-hidden flex flex-col rounded-[3rem]">
+              <Card className="h-full bg-gradient-to-b from-white/[0.04] to-transparent border-white/5 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.5)] relative overflow-hidden flex flex-col rounded-[2rem] md:rounded-[3rem]">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-[0.03] pointer-events-none" />
-                <CardContent className="p-14 flex-1 flex flex-col relative z-10">
-                  <div className="flex items-center gap-4 mb-12">
-                    <Star className="w-6 h-6 text-yellow-500 fill-yellow-500 shadow-[0_0_25px_rgba(234,179,8,0.6)]" />
-                    <span className="text-[11px] font-black uppercase tracking-[0.4em] text-white/30">Refined Output</span>
+                <CardContent className="p-6 md:p-14 flex-1 flex flex-col relative z-10">
+                  <div className="flex items-center gap-4 mb-8 md:mb-12">
+                    <Star className="w-5 md:w-6 h-5 md:h-6 text-yellow-500 fill-yellow-500 shadow-[0_0_25px_rgba(234,179,8,0.6)]" />
+                    <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] text-white/30">Refined Data</span>
                   </div>
 
-                  <div className="flex-1 flex flex-col justify-center min-h-[450px] bg-black/30 rounded-[3rem] p-14 relative border border-white/5 shadow-[inset_0_2px_40px_rgba(0,0,0,0.8)]">
+                  <div className="flex-1 flex flex-col justify-center min-h-[300px] md:min-h-[450px] bg-black/30 rounded-[2rem] md:rounded-[3rem] p-8 md:p-14 relative border border-white/5 shadow-[inset_0_2px_40px_rgba(0,0,0,0.8)]">
                     <AnimatePresence mode="wait">
                       {generatedTestimonial ? (
                         <motion.div
@@ -371,21 +371,21 @@ export default function Home() {
                           animate={{ opacity: 1, scale: 1, y: 0 }}
                           exit={{ opacity: 0, scale: 0.98, y: -20 }}
                           transition={{ type: "spring", damping: 25, stiffness: 120 }}
-                          className="w-full space-y-12"
+                          className="w-full space-y-8 md:space-y-12"
                         >
-                          <Quote className="w-20 h-20 text-primary/10 -ml-6" />
-                          <p className="text-3xl md:text-5xl leading-[1.1] text-white font-heading font-black italic tracking-tighter">
+                          <Quote className="w-12 md:w-20 h-12 md:h-20 text-primary/10 -ml-4 md:-ml-6" />
+                          <p className="text-xl md:text-5xl leading-[1.1] text-white font-heading font-black italic tracking-tighter">
                             "{generatedTestimonial}"
                           </p>
-                          <div className="pt-12 flex justify-end">
+                          <div className="pt-8 md:pt-12 flex justify-end">
                             <Button
                               variant="outline"
                               size="lg"
                               onClick={copyToClipboard}
-                              className="h-20 px-12 rounded-full gap-5 text-[11px] font-black uppercase tracking-[0.4em] border-2 border-white/10 hover:border-primary hover:bg-primary/5 transition-all active:scale-[0.94] group bg-white/[0.02]"
+                              className="h-14 md:h-20 px-8 md:px-12 rounded-full gap-3 md:gap-5 text-[9px] md:text-[11px] font-black uppercase tracking-[0.4em] border-2 border-white/10 hover:border-primary hover:bg-primary/5 transition-all active:scale-[0.94] group bg-white/[0.02]"
                             >
-                              {copied ? <Check className="w-6 h-6 text-green-500" /> : <Copy className="w-6 h-6 transition-transform group-hover:-translate-y-1" />}
-                              {copied ? "Secured" : "Capture Asset"}
+                              {copied ? <Check className="w-4 md:w-6 h-4 md:h-6 text-green-500" /> : <Copy className="w-4 md:w-6 h-4 md:h-6 transition-transform group-hover:-translate-y-1" />}
+                              {copied ? "Secured" : "Capture"}
                             </Button>
                           </div>
                         </motion.div>
@@ -395,14 +395,14 @@ export default function Home() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="text-center space-y-10 max-w-md mx-auto"
+                          className="text-center space-y-8 md:space-y-10 max-w-md mx-auto"
                         >
-                          <div className="w-32 h-32 rounded-[3rem] bg-white/[0.03] flex items-center justify-center mx-auto shadow-2xl relative group-hover:scale-110 transition-transform duration-700">
-                            <Sparkles className="w-12 h-12 text-primary animate-pulse" />
-                            <div className="absolute inset-0 rounded-[3rem] border-2 border-primary/20 animate-ping" />
+                          <div className="w-20 md:w-32 h-20 md:h-32 rounded-[2rem] md:rounded-[3rem] bg-white/[0.03] flex items-center justify-center mx-auto shadow-2xl relative group-hover:scale-110 transition-transform duration-700">
+                            <Sparkles className="w-8 md:w-12 h-8 md:h-12 text-primary animate-pulse" />
+                            <div className="absolute inset-0 rounded-[2rem] md:rounded-[3rem] border-2 border-primary/20 animate-ping" />
                           </div>
-                          <p className="text-3xl font-heading font-black text-white/10 leading-none tracking-tighter uppercase italic">
-                            Awaiting client transmission...
+                          <p className="text-xl md:text-3xl font-heading font-black text-white/10 leading-none tracking-tighter uppercase italic">
+                            Awaiting Transmission...
                           </p>
                         </motion.div>
                       )}
@@ -415,7 +415,7 @@ export default function Home() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="container mx-auto px-6 py-60 border-t border-white/5 relative">
+        <section id="pricing" className="container mx-auto px-6 py-40 border-t border-white/5 relative">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-60 bg-gradient-to-b from-primary/50 to-transparent" />
           
           <div className="text-center mb-32 space-y-8">
@@ -423,25 +423,25 @@ export default function Home() {
             <p className="text-white/30 text-2xl max-w-3xl mx-auto font-medium tracking-tight">Industrial-grade refinement capabilities for established builders.</p>
           </div>
           
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto px-4">
             <motion.div
               whileHover={{ y: -15 }}
               transition={{ type: "spring", damping: 15, stiffness: 100 }}
             >
-              <Card className="relative overflow-hidden border-2 border-primary shadow-[0_0_80px_rgba(var(--primary-rgb),0.15)] bg-white/[0.02] backdrop-blur-3xl rounded-[4rem]">
-                <div className="absolute top-12 right-12">
-                  <Badge className="bg-primary text-primary-foreground font-black px-6 py-2 tracking-[0.3em] uppercase text-[9px] rounded-full shadow-[0_10px_20px_rgba(var(--primary-rgb),0.3)]">Ultimate Protocol</Badge>
+              <Card className="relative overflow-hidden border-2 border-primary shadow-[0_0_80px_rgba(var(--primary-rgb),0.15)] bg-white/[0.02] backdrop-blur-3xl rounded-[3rem] md:rounded-[4rem]">
+                <div className="absolute top-8 md:top-12 right-8 md:right-12">
+                  <Badge className="bg-primary text-primary-foreground font-black px-4 md:px-6 py-1.5 md:py-2 tracking-[0.3em] uppercase text-[8px] md:text-[9px] rounded-full shadow-[0_10px_20px_rgba(var(--primary-rgb),0.3)]">Ultimate Protocol</Badge>
                 </div>
-                <CardContent className="p-20">
-                  <div className="mb-16">
-                    <h3 className="text-[11px] font-black tracking-[0.5em] mb-6 uppercase text-white/30">License Level 01</h3>
-                    <div className="flex items-baseline gap-4">
-                      <span className="text-[9rem] font-black tracking-tighter leading-none">$9</span>
-                      <span className="text-white/20 text-xl font-black tracking-[0.4em] uppercase">Permanent</span>
+                <CardContent className="p-8 md:p-20">
+                  <div className="mb-12 md:mb-16">
+                    <h3 className="text-[10px] md:text-[11px] font-black tracking-[0.5em] mb-4 md:mb-6 uppercase text-white/30">License Level 01</h3>
+                    <div className="flex items-baseline gap-2 md:gap-4">
+                      <span className="text-7xl md:text-[9rem] font-black tracking-tighter leading-none">$9</span>
+                      <span className="text-white/20 text-sm md:text-xl font-black tracking-[0.4em] uppercase">Permanent</span>
                     </div>
                   </div>
                   
-                  <div className="grid gap-8 mb-20">
+                  <div className="grid gap-6 md:gap-8 mb-12 md:mb-20">
                     {[
                       "Unrestricted Refinement Throughput",
                       "All Stylized Profiles Unlocked",
@@ -449,17 +449,17 @@ export default function Home() {
                       "Commercial Exploitation Rights",
                       "Multi-Session Cloud Protocol"
                     ].map((feature, i) => (
-                      <div key={i} className="flex items-center gap-6">
-                        <div className="bg-primary shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)] p-1.5 rounded-full">
-                          <Check className="w-4 h-4 text-primary-foreground" />
+                      <div key={i} className="flex items-center gap-4 md:gap-6">
+                        <div className="bg-primary shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)] p-1.5 rounded-full shrink-0">
+                          <Check className="w-3 md:w-4 h-3 md:h-4 text-primary-foreground" />
                         </div>
-                        <span className="text-white/60 font-black uppercase tracking-widest text-xs">{feature}</span>
+                        <span className="text-white/60 font-black uppercase tracking-widest text-[10px] md:text-xs">{feature}</span>
                       </div>
                     ))}
                   </div>
                   
                   <Button 
-                    className="w-full h-28 rounded-[2.5rem] text-2xl font-black uppercase tracking-[0.4em] shadow-[0_30px_60px_rgba(var(--primary-rgb),0.3)] group relative overflow-hidden"
+                    className="w-full h-20 md:h-28 rounded-[1.5rem] md:rounded-[2.5rem] text-lg md:text-2xl font-black uppercase tracking-[0.4em] shadow-[0_30px_60px_rgba(var(--primary-rgb),0.3)] group relative overflow-hidden"
                     onClick={() => {
                       toast.success("Protocol Initialized: Access Granted.", {
                         description: "Professional tier refinement is now active for this session.",
