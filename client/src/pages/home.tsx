@@ -39,7 +39,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 // --- Components ---
 
-const Header = () => (
+const Header = ({ user, onLogin }: { user: any; onLogin: () => void }) => (
   <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
     <div className="container mx-auto px-4 h-16 flex items-center justify-between">
       <div className="flex items-center gap-2">
@@ -51,11 +51,24 @@ const Header = () => (
       <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
         <a href="#" className="hover:text-foreground transition-colors">Features</a>
         <a href="#" className="hover:text-foreground transition-colors">Pricing</a>
-        <a href="#" className="hover:text-foreground transition-colors">About</a>
       </nav>
       <div className="flex items-center gap-4">
-        <Button variant="ghost" className="hidden sm:inline-flex">Sign In</Button>
-        <Button>Get Started</Button>
+        {user ? (
+          <div className="flex items-center gap-3">
+            <div className="text-right hidden sm:block">
+              <p className="text-sm font-medium leading-none">{user.name}</p>
+              <p className="text-xs text-muted-foreground">@{user.username}</p>
+            </div>
+            <div className="w-10 h-10 rounded-full bg-primary/20 border-2 border-primary/20 overflow-hidden">
+              <img src={user.profileImage} alt={user.name} className="w-full h-full object-cover" />
+            </div>
+          </div>
+        ) : (
+          <>
+            <Button variant="ghost" className="hidden sm:inline-flex" onClick={onLogin}>Sign In</Button>
+            <Button onClick={onLogin}>Get Started</Button>
+          </>
+        )}
       </div>
     </div>
   </header>
@@ -70,9 +83,20 @@ const Footer = () => (
 );
 
 export default function Home() {
+  const [user, setUser] = useState<any>(null);
   const [generatedTestimonial, setGeneratedTestimonial] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const mockLogin = () => {
+    setUser({
+      id: "123",
+      name: "Replit User",
+      username: "replit_dev",
+      profileImage: "https://replit.com/public/images/logo.png"
+    });
+    toast.success("Signed in with Replit (Simulated)");
+  };
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -130,7 +154,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      <Header />
+      <Header user={user} onLogin={mockLogin} />
 
       <main className="flex-1 pt-32 pb-20">
         <section className="container mx-auto px-4 max-w-4xl">
