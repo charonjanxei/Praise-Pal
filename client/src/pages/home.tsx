@@ -4,7 +4,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Sparkles, Copy, Check, Quote, ArrowRight, MessageSquare, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "sonner"; // Assuming sonner is installed/aliased, checking package.json it is.
+import { toast } from "sonner";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -81,25 +82,41 @@ export default function Home() {
     },
   });
 
-  // Mock AI Generation
+  // Real Gemini Generation
   const onSubmit = async (values: FormValues) => {
     setIsGenerating(true);
     setGeneratedTestimonial(null);
-    
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    const mockResponses: Record<string, string> = {
-      professional: "Working with this team has been an absolute pleasure. Their attention to detail and commitment to excellence significantly improved our project outcomes. They didn't just deliver on time; they exceeded our expectations in every way. Highly recommended for anyone seeking top-tier results.",
-      casual: "Honestly, these guys are amazing! Super easy to work with and they just 'get it'. The project turned out way better than I imagined. If you're on the fence, just go for it—you won't regret it!",
-      enthusiastic: "Wow! I am blown away by the results! The level of creativity and dedication shown was simply outstanding. It’s rare to find such talent combined with such great communication. I can't wait to work with them again on our next big idea!",
-    };
+    try {
+      // NOTE: Using import.meta.env for client-side API keys is common in frontend apps, 
+      // though typically not recommended for production secrets. 
+      // Since we are staying in frontend-only mode as requested:
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      
+      if (!apiKey) {
+        throw new Error("VITE_GEMINI_API_KEY is not set in your environment variables.");
+      }
 
-    const response = mockResponses[values.tone as keyof typeof mockResponses] || mockResponses.professional;
-    
-    setGeneratedTestimonial(response);
-    setIsGenerating(false);
-    toast.success("Testimonial generated successfully!");
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+      const prompt = `Convert the following messy client feedback into a polished, professional testimonial with a ${values.tone} tone. 
+      Output ONLY the testimonial text itself, no quotes around it, no extra fluff.
+      
+      Raw Feedback: "${values.rawFeedback}"`;
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text();
+      
+      setGeneratedTestimonial(text.trim());
+      toast.success("Testimonial generated successfully!");
+    } catch (error: any) {
+      console.error("Gemini Error:", error);
+      toast.error(error.message || "Failed to generate testimonial. Check your console and API key.");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const copyToClipboard = () => {
