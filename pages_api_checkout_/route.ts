@@ -5,14 +5,13 @@ const stripe = new Stripe(process.env['STRIPE_SECRET_KEY'] || '');
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      // Create a Checkout Session
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
             price_data: {
               currency: 'usd',
               product_data: { name: 'Testimonial Automator Pro' },
-              unit_amount: 900, // $9.00 in cents
+              unit_amount: 900,
             },
             quantity: 1,
           },
@@ -31,3 +30,4 @@ export default async function handler(req, res) {
     res.status(405).end('Method Not Allowed');
   }
 }
+
